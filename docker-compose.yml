@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  flask_app:
+    build: .
+    ports:
+      - "8080:6000"
+    environment:
+      DATABASE_URL: mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@mysql_server:3306/${MYSQL_DATABASE}
+      REDIS_URL: redis://redis_server:6379/0
+    depends_on:
+      - mysql_server
+      - redis_server
+
+  mysql_server:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3307:3306"
+
+  redis_server:
+    image: redis:alpine
