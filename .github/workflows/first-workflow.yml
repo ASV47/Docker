@@ -5,12 +5,6 @@ on:
 jobs:
    fisrt_job:
       runs-on: ubuntu-latest
-      env:
-      MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-      MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
-      MYSQL_USER: ${{ secrets.MYSQL_USER }}
-      MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-
       steps:
        - name: Checkout code
          uses: actions/checkout@v4
