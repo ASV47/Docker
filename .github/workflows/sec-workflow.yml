@@ -1,0 +1,47 @@
+name: my sec workflow
+on:
+  push:
+   branches: main
+jobs:
+   fisrt_job:
+    runs-on: ubuntu-latest
+    steps: 
+    - name: checkout repo
+      uses: actions/checkout@v4
+
+    - name: install porgram
+      run: sudo apt-get install cowsay -y
+
+    - name: Excute cowsay CMD
+      run: cowsay -f dragon "Run for cover , iam a Dragon....RAWR" dragon.txt
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v6.0.0
+      with:
+       name: dragon-file
+       path: dragon.txt
+    test_job2:
+     runs-on: ubuntu-latest
+     needs: fisrt_job
+     steps:
+      - name: download artifact
+        uses: actions/download-artifact@v7.0.0
+        with:
+          name: dragon-file
+
+      - name: Test File Exists
+        run: grep -i "dragon" dragon.txt
+
+    build_job2:
+     runs-on: ubuntu-latest
+     needs: test_job2
+     steps:
+      - name: download artifact
+        uses: actions/download-artifact@v7.0.0
+        with:
+          name: dragon-file
+
+      - name: Read File
+        run: cat dragon.txt
+
+    
