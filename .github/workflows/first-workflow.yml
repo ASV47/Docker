@@ -9,8 +9,8 @@ jobs:
          - name: Checkout code
            uses: actions/checkout@v4
          - name: Build Docker Compose
-           run: docker-compose -f docker-compose.yml build
+           run: docker compose -f docker compose.yml build
          - name: Run Docker Compose
-           run: docker-compose -f docker-compose.yml up -d
+           run: docker compose -f docker compose.yml up -d
          - name: List Running Containers
            run: docker ps
