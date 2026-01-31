@@ -1,0 +1,17 @@
+name: my fisrt workflow
+on:
+  push:
+   branches: main
+
+jobs:
+   fisrt_job:
+      runs-on: ubuntu-latest
+        steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Build Docker Compose
+      run: docker-compose -f docker-compose.yml build
+    - name: Run Docker Compose
+      run: docker-compose -f docker-compose.yml up -d
+    - name: List Running Containers
+      run: docker ps
